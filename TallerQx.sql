@@ -76,19 +76,33 @@ LEFT JOIN MateriasEstudiantes AS me ON me.idEstudiante = e.idEstudiante
 LEFT JOIN MATERIAS AS m ON m.idMateria = me.idMateria
 WHERE e.activo = TRUE;
 
--- Ejercicio 3.1: Actualizar el email del estudiante con ID 1
+-- Ejercicio 3.1: Actualizar email 
 UPDATE ESTUDIANTES
 SET email = 'carlos.nuevo@email.com'
 WHERE idEstudiante = 1;
 
--- Ejercicio 3.2: Actualizar la nota del estudiante 2 en la materia 3
+-- Ejercicio 3.2: Actualizar nota 
 UPDATE MateriasEstudiantes
 SET nota = 3.5
 WHERE idEstudiante = 2
   AND idMateria = 3;
 
--- Ejercicio 3.3: Desactivar materias con descripción NULL o vacía
+-- Ejercicio 3.3: Desactivar materias descripción NULL o vacía
 UPDATE MATERIAS
 SET activo = FALSE
 WHERE descripcion IS NULL
    OR TRIM(descripcion) = '';
+
+-- Ejercicio 4.1: Eliminar la matrícula del estudiante 3 en la materia 2
+DELETE FROM MateriasEstudiantes
+WHERE idEstudiante = 3
+  AND idMateria = 2;
+
+-- Ejercicio 4.2: Eliminar materias inactivas
+-- ON DELETE CASCADE también elimina sus matrículas asociadas.
+DELETE FROM MATERIAS
+WHERE activo = FALSE;
+
+-- Ejercicio 4.3: Eliminar al estudiante con identificación 99999999
+DELETE FROM ESTUDIANTES
+WHERE identificacion = '99999999';
