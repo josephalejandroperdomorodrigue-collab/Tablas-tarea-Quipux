@@ -47,18 +47,18 @@ SELECT nombres, apellidos, email
 FROM ESTUDIANTES
 WHERE activo = TRUE;
 
--- Ejercicio 2.2: Estudiantes mayores de 18, ordenados por edad
+-- Ejercicio 2.2: Estudiantes mayores de 18 en orden
 SELECT *
 FROM ESTUDIANTES
 WHERE edad > 18
 ORDER BY edad ASC;
 
--- Ejercicio 2.3: Registros con nota menor a 3.0
+-- Ejercicio 2.3: Registros nota menor a 3.0
 SELECT idEstudiante, nota
 FROM MateriasEstudiantes
 WHERE nota < 3.0;
 
--- Ejercicio 2.4: Materias cuyo nombre contiene "Programación"
+-- Ejercicio 2.4: Materias "Programación"
 SELECT *
 FROM MATERIAS
 WHERE nombre LIKE '%Programación%';
@@ -69,9 +69,26 @@ FROM MateriasEstudiantes AS me
 INNER JOIN ESTUDIANTES AS e ON e.idEstudiante = me.idEstudiante
 INNER JOIN MATERIAS AS m ON m.idMateria = me.idMateria;
 
--- Ejercicio 2.6: Todos los estudiantes activos, tengan materias o no
+-- Ejercicio 2.6: Estudiantes activos, tengan materias o no
 SELECT e.idEstudiante, e.nombres, e.apellidos, m.nombre AS materia, me.nota
 FROM ESTUDIANTES AS e
 LEFT JOIN MateriasEstudiantes AS me ON me.idEstudiante = e.idEstudiante
 LEFT JOIN MATERIAS AS m ON m.idMateria = me.idMateria
 WHERE e.activo = TRUE;
+
+-- Ejercicio 3.1: Actualizar el email del estudiante con ID 1
+UPDATE ESTUDIANTES
+SET email = 'carlos.nuevo@email.com'
+WHERE idEstudiante = 1;
+
+-- Ejercicio 3.2: Actualizar la nota del estudiante 2 en la materia 3
+UPDATE MateriasEstudiantes
+SET nota = 3.5
+WHERE idEstudiante = 2
+  AND idMateria = 3;
+
+-- Ejercicio 3.3: Desactivar materias con descripción NULL o vacía
+UPDATE MATERIAS
+SET activo = FALSE
+WHERE descripcion IS NULL
+   OR TRIM(descripcion) = '';
